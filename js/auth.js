@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Define the correct password/token here
     // Change "YOUR_TOKEN_HERE" to the actual password you want to use.
-    const VALID_TOKEN = "TOKEN"; 
+    const VALID_TOKEN = "Token"; 
 
     // 3. The function to check credentials and redirect
     function attemptLogin() {
