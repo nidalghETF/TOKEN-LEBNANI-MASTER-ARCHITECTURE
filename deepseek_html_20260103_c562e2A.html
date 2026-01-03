@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Lebnani - Executive Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --navy-deep: #050A1F;
+            --transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-white);
+            min-height: 100vh;
+            background-color: var(--navy-deep);
+            background: radial-gradient(circle at 50% 50%, #0F172A 0%, #020617 100%);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* --- PARALLAX BACKGROUND --- */
+        .parallax-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .glow-orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
+            transition: transform 0.1s linear;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #1e3a8a, transparent); }
+        .orb-2 { bottom: -10%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, #4c1d95, transparent); }
+        .orb-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent); }
+
+        /* --- HEADER & HERO --- */
+        header {
+            padding: 50px 20px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-img-sim {
+            width: 80px; height: 80px; margin: 0 auto 20px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--gold-primary);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif; font-size: 3rem;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif; font-size: 1.1rem;
+            color: var(--gold-primary); letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 300; margin-bottom: 30px;
+        }
+
+        .intro-text {
+            max-width: 800px; margin: 0 auto 40px;
+            font-size: 1.1rem; line-height: 1.6; color: #cbd5e1;
+        }
+
+        /* --- CTA BUTTON --- */
+        .cta-container {
+            margin-bottom: 60px;
+        }
+
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 1px;
+            text-decoration: none; text-transform: uppercase;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .cta-btn:hover {
+            background: var(--gold-primary); color: #000;
+            box-shadow: 0 0 25px var(--gold-glow); transform: translateY(-2px);
+        }
+
+        /* --- CONTENT GRID --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        .glass-card {
+            background: var(--glass-surface);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            opacity: 0; transform: translateY(30px); /* For animation */
+        }
+
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Titles inside cards */
+        h3 {
+            font-family: 'Cinzel', serif; font-size: 1.5rem; color: #fff;
+            margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px; display: inline-block;
+        }
+
+        .section-number {
+            color: var(--gold-primary); margin-right: 10px; font-weight: 700;
+        }
+
+        p { margin-bottom: 15px; line-height: 1.7; color: var(--text-dim); }
+        
+        strong { color: var(--gold-primary); font-weight: 600; }
+
+        /* Specific Layouts */
+        .layer-list { list-style: none; }
+        .layer-list li {
+            margin-bottom: 15px; padding-left: 20px; border-left: 2px solid var(--glass-border);
+        }
+        .layer-list li strong { display: block; margin-bottom: 4px; color: #fff; }
+        .layer-list li span { color: var(--gold-primary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        .process-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px;
+        }
+        .process-step {
+            background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .process-title { color: var(--gold-primary); font-family: 'Cinzel', serif; margin-bottom: 10px; display: block; font-size: 1.1rem; }
+
+        .adv-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px;
+        }
+
+        /* Animation Class */
+        .slide-in { animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .process-grid, .adv-grid { grid-template-columns: 1fr; }
+            .glass-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="parallax-wrapper">
+        <div class="glow-orb orb-1" data-speed="0.05"></div>
+        <div class="glow-orb orb-2" data-speed="0.08"></div>
+        <div class="glow-orb orb-3" data-speed="0.03"></div>
+    </div>
+
+    <header>
+        <div class="logo-img-sim">LOGO</div>
+        <h1>Executive Summary: Token Lebnani</h1>
+        <h2>The Operational Blueprint & Regulated Architecture</h2>
+        <div class="intro-text">
+            Token Lebnani functions as a regulated infrastructure bridge, engineered to facilitate secure cross-border investment into Lebanese real estate. By utilizing the Abu Dhabi Global Market (ADGM) as a legal wrapper, we convert physical property rights into liquid, digital securities protected by English Common Law.
+        </div>
+        
+        <div class="cta-container">
+            <a href="architecture.html" class="cta-btn">
+                View Master Architecture Tree
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="glass-card slide-in" style="animation-delay: 0.1s;">
+            <h3><span class="section-number">1.</span> The "Regulated Bridge" Architecture</h3>
+            <p>Our model relies on a sophisticated dual-jurisdiction structure designed to isolate risk and ensure enforceability:</p>
+            <ul class="layer-list">
+                <li>
+                    <span>Layer 1 (The Platform)</span>
+                    <strong>Token Lebnani Ltd</strong>
+                    Operates as the regulated interface, applying for an FSRA Category 4 (Arranging) license to structure the deals.
+                </li>
+                <li>
+                    <span>Layer 2 (The Issuer)</span>
+                    <strong>ADGM-domiciled Holding Company</strong>
+                    Issues the digital tokens. This "Bankruptcy Remote" vehicle owns the Lebanese subsidiary, keeping assets separate from platform risk.
+                </li>
+                <li>
+                    <span>Layer 3 (The Asset)</span>
+                    <strong>Lebanese Special Purpose Vehicle (SPV)</strong>
+                    Holds the physical title deed. This ring-fences the asset, ensuring legal issues in one property cannot affect others.
+                </li>
+            </ul>
+            <p style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed rgba(255,255,255,0.1);">
+                <strong>The Legal Link:</strong> A "Look-Through" legal structure, architected by YazConsult, ensures that token holders possess enforceable rights to the underlying assets. This is reinforced by Binding Arbitration clauses under the New York Convention, ensuring ADGM judgments are enforceable in Lebanon.
+            </p>
+        </div>
+
+        <div class="glass-card slide-in" style="animation-delay: 0.2s;">
+            <h3><span class="section-number">2.</span> The 3-Step Execution Process</h3>
+            <p>We transform brick-and-mortar assets into digital securities through a streamlined lifecycle:</p>
+            <div class="process-grid">
+                <div class="process-step">
+                    <span class="process-title">I. Acquisition</span>
+                    The Lebanese SPV acquires a Grade-A asset. The SPV owns the property before any tokens are sold to investors, ensuring Zero Counterparty Risk (Asset-First Model).
+                </div>
+                <div class="process-step">
+                    <span class="process-title">II. Tokenization</span>
+                    The ADGM Holding Company issues 100% of the tokens to the Asset Owner initially. These are programmable securities on the blockchain.
+                </div>
+                <div class="process-step">
+                    <span class="process-title">III. Distribution</span>
+                    Investors purchase tokens via a secure dashboard. Net Operating Income (rent) is calculated by the FMC and distributed via Direct Bank Transfer (USD) to minimize regulatory friction.
+                </div>
+            </div>
+        </div>
+
+        <div class="adv-grid">
+            <div class="glass-card slide-in" style="animation-delay: 0.3s;">
+                <h3><span class="section-number">3.</span> Key Operational Advantages</h3>
+                <p><strong>Secondary Market Access:</strong> Unlike traditional private equity, we provide a pathway to liquidity from Day 1 by listing tokens on partner ADGM-licensed Multilateral Trading Facilities (MTFs).</p>
+                <p><strong>Non-Custodial Architecture:</strong> We operate a non-custodial model. Investors hold their own private keys (e.g., MetaMask, Ledger). Token Lebnani never holds client funds or assets, significantly reducing regulatory capital requirements and increasing trust.</p>
+                <p><strong>High-Touch Concierge:</strong> We bridge the technical gap for HNWIs with a "White-Glove" service that provides Guided Wallet Setup and personal onboarding, removing the "tech barrier" for traditional investors.</p>
+            </div>
+
+            <div class="glass-card slide-in" style="animation-delay: 0.4s;">
+                <h3><span class="section-number">4.</span> Institutional Governance</h3>
+                <p>To ensure bank-grade compliance and operational speed, we leverage best-in-class partnerships:</p>
+                <ul class="layer-list">
+                    <li><strong>Compliance:</strong> Waystone acts as the outsourced Money Laundering Reporting Officer (MLRO), ensuring 100% AML/CFT compliance.</li>
+                    <li><strong>Technology:</strong> Digishares provides the ISO 27001-compliant, institutional-grade tokenization infrastructure.</li>
+                    <li><strong>Legal:</strong> YazConsult manages the cross-border structuring and enforceability opinions.</li>
+                </ul>
+                <p style="font-size: 0.9rem; margin-top: 10px;"><strong>Financial Model:</strong> The company operates on a "Recoverable Onboarding Expense" model, where setup costs are pre-financed or fully recoverable from initial transaction fees, imposing no long-term debt on the platform.</p>
+            </div>
+        </div>
+
+        <div class="glass-card slide-in" style="animation-delay: 0.5s;">
+            <h3><span class="section-number">5.</span> Go-To-Market Strategy: The High-Ticket Concierge Model</h3>
+            <p>To navigate the ADGM Sandbox constraint of a 200-investor cap, Token Lebnani eschews the high-volume retail model in favor of a "Digital Private Bank" approach. We treat every investor slot as premium real estate.</p>
+            
+            <div class="adv-grid" style="margin-top: 20px;">
+                <div>
+                    <strong>Ticket Size & Revenue</strong>
+                    <p>$65,000+ (Strict Qualification: All investors must verify Net Assets > $500,000 to qualify as Professional Clients). Target: Maximizing revenue per slot to achieve our $10M target within Sandbox limits.</p>
+                </div>
+                <div>
+                    <strong>The Execution Engine</strong>
+                    <p>A B2B2C "Force Multiplier." We scale without a massive salesforce by leveraging trusted intermediaries (Real Estate Agencies in Lebanon, Wealth Advisors in GCC).</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                <strong>Operational Backbone: Zero-Friction Onboarding</strong>
+                <p>To address the "Legacy Tech Barrier" of our non-technical demographic:</p>
+                <ul style="padding-left: 20px; color: var(--text-dim);">
+                    <li><strong>The Concierge Role:</strong> A dedicated Client Services Coordinator handles 100% of the "tech friction" (KYC, Guided Wallet Setup, TPA Signing) via personal Zoom/WhatsApp support.</li>
+                    <li><strong>The "Shadow" Close:</strong> Our Head of Capital Partnerships ("The Hunter") shadows the client relationship from the first handshake to the final wire transfer.</li>
+                    <li><strong>Farming Strategy:</strong> Post-acquisition, we focus on maximizing "Share of Wallet" by offering existing investors first refusal on new assets.</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.glow-orb');
+            orbs.forEach(orb => {
+                const speed = orb.getAttribute('data-speed');
+                const xOffset = (window.innerWidth / 2 - e.clientX) * speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) * speed;
+                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
