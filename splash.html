@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Lebnani - Secure Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 50%, #0F172A 0%, #020617 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Ambient Orbs */
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+            animation: float 10s infinite ease-in-out;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #1e3a8a; }
+        .orb-2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #4c1d95; }
+
+        @keyframes float { 0%, 100% { transform: translate(0,0); } 50% { transform: translate(20px, -20px); } }
+
+        /* Content */
+        .logo-sim {
+            width: 120px; height: 120px;
+            border: 2px solid #D4AF37; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #D4AF37; font-size: 0.8rem; margin-bottom: 40px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            animation: pulse 3s infinite;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif; font-size: 3rem; letter-spacing: 5px;
+            text-transform: uppercase; margin: 0;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: rgba(255,255,255,0.6); letter-spacing: 2px;
+            margin-top: 15px; font-size: 0.9rem; text-transform: uppercase;
+        }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); } 50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.4); } 100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.2); } }
+    </style>
+</head>
+<body>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="logo-sim">LOGO</div>
+    <h1>Token Lebnani</h1>
+    <p>Secure Enterprise Gateway</p>
+
+    <script src="auth.js"></script>
+</body>
+</html>
