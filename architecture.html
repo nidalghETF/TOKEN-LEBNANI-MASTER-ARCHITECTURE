@@ -128,20 +128,6 @@
             top: 30px;
             left: 40px;
         }
-        
-        .logo-img-sim {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--gold-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            color: var(--gold-primary);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-        }
 
         .main-titles {
             text-align: center;
@@ -432,21 +418,30 @@
         <div class="nav-dot" data-target="root3" data-label="Institutional Expert"></div>
     </nav>
 
-    <header>
-        <div class="logo-placeholder">
-            <div class="logo-img-sim">LOGO</div>
-        </div>
-        <div class="main-titles">
-            <h1>Strategic Architecture</h1>
-            <h2>Token Lebnani Master Architecture</h2>
-            <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">THE OPERATING SYSTEM FOR CROSS-BORDER REAL ESTATE</div>
-        </div>
-        
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search architecture (e.g., 'SPV', 'Legal', 'Wallet')...">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-    </header>
+    <header id="header">
+    <div class="logo-container" style="margin-bottom: 15px; text-align: center;">
+        <a href="home.html">
+            <img src="images/logo.png" alt="Token Lebnani" style="width: 100px; height: auto; display: inline-block;">
+        </a>
+    </div>
+
+    <nav style="margin-bottom: 30px; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;">
+        <a href="home.html" style="color: #cbd5e1; text-decoration: none; margin: 0 15px;">HOME</a>
+        <span style="color: #475569;">|</span>
+        <a href="architecture.html" style="color: #d4af37; text-decoration: none; margin: 0 15px; border-bottom: 1px solid #d4af37;">ARCHITECTURE</a>
+    </nav>
+
+    <div class="main-titles">
+        <h1>Strategic Architecture</h1>
+        <h2>Token Lebnani Master Architecture</h2>
+        <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">THE OPERATING SYSTEM FOR CROSS-BORDER REAL ESTATE</div>
+    </div>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search architecture (e.g., 'SPV', 'Legal', 'Wallet')...">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </div>
+</header>
 
     <main class="container" id="treeContainer"></main>
 
@@ -859,4 +854,5 @@
     <script src="auth.js"></script>
 </body>
 </html>
+
 
