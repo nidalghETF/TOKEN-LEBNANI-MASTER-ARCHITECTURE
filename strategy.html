@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Lebnani - Strategy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-surface: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --navy-deep: #050A1F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-white);
+            background-color: var(--navy-deep);
+            background: radial-gradient(circle at 50% 50%, #0F172A 0%, #020617 100%);
+            overflow: hidden; /* Key for the slide effect */
+            height: 100vh;
+        }
+
+        /* --- PARALLAX BACKGROUND --- */
+        .parallax-wrapper {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+        }
+        .glow-orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
+            transition: transform 0.1s linear;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #1e3a8a, transparent); }
+        .orb-2 { bottom: -10%; right: -10%; width: 700px; height: 700px; background: radial-gradient(circle, #4c1d95, transparent); }
+        .orb-3 { top: 40%; left: 40%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15), transparent); }
+
+        /* --- HEADER & NAV --- */
+        #header-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 20px 10px;
+            background: rgba(5, 10, 31, 0.95); /* High opacity to hide slides behind it */
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 100;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            font-family: 'Inter', sans-serif; 
+            font-size: 0.9rem; 
+            margin-top: 15px;
+        }
+        nav a { color: #cbd5e1; text-decoration: none; margin: 0 15px; transition: color 0.3s; }
+        nav a:hover, nav a.active { color: var(--gold-primary); }
+        nav a.active { border-bottom: 1px solid var(--gold-primary); }
+        nav span { color: #475569; }
+
+        /* --- SLIDE CONTAINER --- */
+        #main-container {
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            height: 100vh;
+            width: 100%;
+        }
+
+        .slide-group {
+            height: 100vh;
+            width: 100%;
+            padding: 220px 20px 40px; /* Top padding clears the fixed header */
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+            overflow-y: auto; /* Allow scroll within slide if content is tall */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- ENTRY BLOCKS --- */
+        .entry-block {
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            width: 100%;
+        }
+
+        .entry-hidden {
+            opacity: 0; transform: translateY(20px); pointer-events: none;
+            height: 0; overflow: hidden; margin: 0;
+        }
+
+        .entry-visible {
+            opacity: 1; transform: translateY(0); pointer-events: auto;
+            height: auto;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .gold-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+            width: 100%;
+            margin-bottom: 25px;
+            opacity: 0.7;
+        }
+
+        /* --- GRID CARDS --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .glass-box {
+            background: var(--glass-surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .glass-box:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(255,255,255,0.05);
+            transform: translateY(-2px);
+        }
+
+        .box-label {
+            color: var(--gold-primary);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        .box-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+        }
+
+        /* --- NAV DOTS --- */
+        .nav-dots {
+            position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 15px; z-index: 200;
+        }
+
+        .dot {
+            width: 10px; height: 10px;
+            border: 1px solid var(--gold-primary);
+            border-radius: 50%; cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--gold-primary);
+            box-shadow: 0 0 10px var(--gold-glow);
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            #header-fixed { padding: 15px; }
+            #header-fixed img { width: 90px; }
+            .section-title { font-size: 1.4rem; }
+            .grid-container { grid-template-columns: 1fr; gap: 15px; }
+            .slide-group { padding-top: 180px; display: block; }
+            .entry-block { margin-bottom: 40px; }
+            .nav-dots { right: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="parallax-wrapper">
+        <div class="glow-orb orb-1" data-speed="0.05"></div>
+        <div class="glow-orb orb-2" data-speed="0.08"></div>
+        <div class="glow-orb orb-3" data-speed="0.03"></div>
+    </div>
+
+    <div class="nav-dots">
+        <div class="dot active" onclick="goToSlide(0, true)"></div>
+        <div class="dot" onclick="goToSlide(1, true)"></div>
+        <div class="dot" onclick="goToSlide(2, true)"></div>
+    </div>
+
+    <header id="header-fixed">
+        <a href="home.html">
+            <img src="images/logo.png" alt="Token Lebnani" style="width: 110px; height: auto; display: inline-block;">
+        </a>
+        <nav>
+            <a href="home.html">HOME</a>
+            <span style="color: #475569;">|</span>
+            <a href="strategy.html" class="active">STRATEGY</a>
+            <span style="color: #475569;">|</span>
+            <a href="architecture.html">ARCHITECTURE</a>
+        </nav>
+    </header>
+
+    <div id="main-container">
+        
+        <div class="slide-group">
+            <div class="entry-block entry-visible">
+                <h2 class="section-title">Step 1: Asset Sourcing & Contract Execution</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">Token Lebnani identifies, evaluates, and signs an exclusive agreement with a property owner to tokenize their asset.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">Token Lebnani operates as a facilitator, not as an asset owner. This exclusive contract is the trigger that initiates the entire tokenization process.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">The Head of Asset Origination negotiates terms including the percentage of ownership to be fractionalized, valuation methodology, and fees. Only after this binding agreement is signed does the structuring process begin.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 2: Your Investment Gets a UAE Legal Shield</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">We create a UAE-based Holding Company (in Abu Dhabi Global Market) that will own the property.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">This establishes the legal foundation that will ultimately hold the asset under English Common Law protection.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">Token Lebnani incorporates the Holding Company under ADGM regulations, establishing the regulatory framework that governs investor rights and asset protection.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 3: The Asset Is Secured</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">The Lebanese property is legally transferred to a dedicated Lebanese Special Purpose Vehicle (SPV - a Lebanese registered company).</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">This "Asset-First" model ensures the SPV owns the physical title deed before any tokens are sold, eliminating counterparty risk.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">The property deed is transferred through a Lebanese notary into the SPV's name, with the ADGM Holding Company registered as the sole owner. Legal validation ensures compliance with Lebanese foreign ownership rules.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-group">
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 4: Professional Managers Handle Everything</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">The ADGM Holding Company appoints a professional Facility Management Company (FMC) to manage the property.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">Investors are passive financial beneficiaries—they should not manage tenants, repairs, or taxes. The FMC ensures professional operations and reliable income collection.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">The FMC signs a legally binding Facilities Management Agreement with the Lebanese SPV. This contract mandates rent collection, property maintenance, tax payments, and monthly reporting to the Holding Company.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 5: Token Lebnani Cannot Access Your Tokens—Ever</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">100% of the ownership tokens are initially issued to the property owner, then the pre-agreed percentage becomes available for sale on the Token Lebnani platform.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">Token Lebnani operates as a regulated facilitator—never taking ownership of the asset or tokens. The platform simply enables the property owner to fractionally sell their equity through a secure, automated process.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">Token Lebnani creates digital securities using institutional-grade technology. These tokens are special-purpose digital certificates sent directly to the owner's personal digital wallet. <strong>Token Lebnani has no ability to freeze, transfer, or control your assets</strong>.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 6: Tokens Are Offered to Qualified Investors</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">Token Lebnani lists the tokens on its regulated platform for sale to Professional Clients.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">This opens access to diaspora capital while complying with regulatory requirements—Token Lebnani never acts as a fund or exchange.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">The property owner authorizes Token Lebnani to arrange the sale. Investors view the offering via a secure dashboard, complete identity verification, and are whitelisted in the system. Funds settle via a regulated Escrow Agent.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-group">
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 7: You Acquire Direct Economic Rights</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">You purchase tokens that represent legal equity in the ADGM Holding Company—and thus pro-rata ownership of the Lebanese SPV and physical asset.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">You are not buying a promise or a derivative—you are buying enforceable property rights.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">You sign two binding instruments: 1) A Token Purchase Agreement (TPA) governed by ADGM law. 2) A Smart Contract that records your rights. Funds are wired in USD; tokens arrive in your wallet.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 8: If a dispute arises, international law protects you</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">Your ownership is protected by Binding Arbitration under the New York Convention.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">If a dispute arises, an ADGM judgment can be enforced directly against the Lebanese property—bypassing slow local courts entirely.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content">The Lebanese SPV's Articles of Association include Share Pledges and arbitration clauses. ADGM courts recognize your token ledger as the definitive shareholder register.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="entry-block entry-hidden">
+                <h2 class="section-title">Step 9: Earn, Trade, & Access</h2>
+                <div class="gold-line"></div>
+                <div class="grid-container">
+                    <div class="glass-box">
+                        <span class="box-label">WHAT</span>
+                        <div class="box-content">You receive quarterly income distributions, can trade tokens on regulated trading venues, and transfer ownership instantly upon death.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">WHY</span>
+                        <div class="box-content">This solves the core Lebanese problems: illiquidity, probate delays, and opaque cash flows.</div>
+                    </div>
+                    <div class="glass-box">
+                        <span class="box-label">HOW</span>
+                        <div class="box-content"><strong>Earn:</strong> Rental income is collected by FMC.<br><strong>Trade:</strong> Tokens compatible with regulated venues.<br><strong>Inherit:</strong> Simple recovery process for heirs.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // --- PARALLAX LOGIC (Matches Home.html) ---
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.glow-orb');
+            orbs.forEach(orb => {
+                const speed = orb.getAttribute('data-speed');
+                const xOffset = (window.innerWidth / 2 - e.clientX) * speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) * speed;
+                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+
+        // --- SLIDE LOGIC ---
+        let currentSlide = 0;
+        let currentEntry = 0;
+        const totalEntries = 9;
+        const container = document.getElementById('main-container');
+        const dots = document.querySelectorAll('.dot');
+        const entries = document.querySelectorAll('.slide-group .entry-block'); 
+        // Note: querySelectorAll flattens the list, so we can index 0-8 easily
+
+        function updateView() {
+            const targetSlide = Math.floor(currentEntry / 3);
+            
+            if (targetSlide !== currentSlide) {
+                currentSlide = targetSlide;
+                container.style.transform = `translateY(-${currentSlide * 100}vh)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            // Show current, hide others logic? 
+            // The request implies a flow. Let's ensure previous ones in the same slide are visible or hidden?
+            // "Gemini" logic hid previous ones. We will replicate that "focus" effect.
+            
+            entries.forEach((entry, index) => {
+                if (index === currentEntry) {
+                    entry.classList.remove('entry-hidden');
+                    entry.classList.add('entry-visible');
+                } else if (Math.floor(index / 3) === currentSlide && index < currentEntry) {
+                    // Items *before* current one, but on *same* slide:
+                    // Option A: Keep visible (Stacking) -> Better for user context
+                    // Option B: Hide (Focus) -> As per Gemini file
+                    // Let's do Option A for better readability on Desktop
+                    entry.classList.remove('entry-hidden');
+                    entry.classList.add('entry-visible');
+                    // If you strictly want the "Gemini" hide effect, comment the lines above and uncomment below:
+                    // entry.classList.remove('entry-visible');
+                    // entry.classList.add('entry-hidden');
+                } else {
+                    // Different slide or future item
+                    entry.classList.remove('entry-visible');
+                    entry.classList.add('entry-hidden');
+                }
+            });
+        }
+
+        function showNext() {
+            if (currentEntry < totalEntries - 1) {
+                currentEntry++;
+                updateView();
+            }
+        }
+
+        function showPrev() {
+            if (currentEntry > 0) {
+                currentEntry--;
+                updateView();
+            }
+        }
+
+        function goToSlide(slideIndex, forceReveal = false) {
+            currentSlide = slideIndex;
+            const newEntryStart = slideIndex * 3;
+            
+            if (forceReveal) {
+                // Show all items in this slide
+                currentEntry = Math.min(newEntryStart + 2, totalEntries - 1);
+            } else {
+                currentEntry = newEntryStart;
+            }
+            updateView();
+        }
+
+        // Input Listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === 'ArrowDown' || e.key === ' ') showNext();
+            else if (e.key === 'ArrowUp') showPrev();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' || e.target.classList.contains('dot')) return;
+            showNext();
+        });
+
+        let isScrolling = false;
+        window.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+            if (e.deltaY > 0) showNext();
+            else showPrev();
+            setTimeout(() => isScrolling = false, 600); 
+        });
+
+        // Initialize
+        updateView();
+    </script>
+    <script src="auth.js"></script>
+</body>
+</html>
