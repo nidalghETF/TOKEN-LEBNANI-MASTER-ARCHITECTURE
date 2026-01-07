@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Token Lebnani - Master Architecture</title>
+    <title>Token Lebnani - Strategy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -53,7 +53,7 @@
             border-radius: 50%;
             filter: blur(80px);
             opacity: 0.4;
-            transition: transform 0.1s linear; /* fast response to mouse */
+            transition: transform 0.1s linear;
         }
 
         .orb-1 { top: -10%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, #1e3a8a, transparent); }
@@ -112,7 +112,6 @@
             transform: translateY(-50%) translateX(0);
         }
 
-
         /* --- HEADER --- */
         header {
             padding: 60px 20px 30px;
@@ -121,12 +120,6 @@
             align-items: center;
             position: relative;
             z-index: 10;
-        }
-
-        .logo-placeholder {
-            position: absolute;
-            top: 30px;
-            left: 40px;
         }
 
         .main-titles {
@@ -217,7 +210,6 @@
             transform: translateY(30px);
         }
 
-        /* Animation class applied via JS */
         .slide-in {
             animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
@@ -227,7 +219,6 @@
             box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
         }
 
-        /* Dimmed state for search */
         .root-node.dimmed {
             opacity: 0.2;
             filter: grayscale(1);
@@ -245,7 +236,6 @@
             position: relative;
         }
 
-        /* Active energy line on left */
         .root-header::before {
             content: '';
             position: absolute;
@@ -351,7 +341,6 @@
         }
         .child-content strong:first-child { margin-top: 0; }
 
-        /* Highlight span for search */
         .highlight {
             background-color: rgba(212, 175, 55, 0.3);
             color: #fff;
@@ -359,7 +348,6 @@
             border-radius: 4px;
         }
 
-        /* Arrows */
         .arrow-icon {
             width: 20px;
             height: 20px;
@@ -392,10 +380,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobile */
         @media (max-width: 768px) {
             header { padding-top: 100px; }
-            .logo-placeholder { left: 50%; transform: translateX(-50%); top: 20px; }
             h1 { font-size: 2rem; }
             .root-header { padding: 20px; flex-direction: column; align-items: flex-start; gap: 15px; }
             .root-header .arrow-icon { position: absolute; right: 20px; top: 25px; }
@@ -413,229 +399,212 @@
     </div>
 
     <nav class="sidebar-nav">
-        <div class="nav-dot" data-target="root1" data-label="Capital Investor"></div>
-        <div class="nav-dot" data-target="root2" data-label="Property Owner"></div>
-        <div class="nav-dot" data-target="root3" data-label="Institutional Expert"></div>
+        <div class="nav-dot" data-target="step1" data-label="Asset Sourcing"></div>
+        <div class="nav-dot" data-target="step4" data-label="Operations"></div>
+        <div class="nav-dot" data-target="step7" data-label="Investment"></div>
     </nav>
 
     <header id="header">
-    <div class="logo-container" style="margin-bottom: 15px; text-align: center;">
-        <a href="home.html">
-            <img src="images/logo.png" alt="Token Lebnani" style="width: 100px; height: auto; display: inline-block;">
-        </a>
-    </div>
+        <div class="logo-container" style="margin-bottom: 15px; text-align: center;">
+            <a href="home.html">
+                <img src="images/logo.png" alt="Token Lebnani" style="width: 100px; height: auto; display: inline-block;">
+            </a>
+        </div>
 
-    <nav style="margin-bottom: 30px; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;">
-        <a href="home.html" style="color: #cbd5e1; text-decoration: none; margin: 0 15px;">HOME</a>
-        <span style="color: #475569;">|</span>
-        <a href="strategy.html" style="color: #cbd5e1; text-decoration: none; margin: 0 15px;">STRATEGY</a>
-        <span style="color: #475569;">|</span>
-        <a href="architecture.html" style="color: #d4af37; text-decoration: none; margin: 0 15px; border-bottom: 1px solid #d4af37;">ARCHITECTURE</a>
-    </nav>
+        <nav style="margin-bottom: 30px; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.9rem;">
+            <a href="home.html" style="color: #cbd5e1; text-decoration: none; margin: 0 15px;">HOME</a>
+            <span style="color: #475569;">|</span>
+            <a href="strategy.html" style="color: #d4af37; text-decoration: none; margin: 0 15px; border-bottom: 1px solid #d4af37;">STRATEGY</a>
+            <span style="color: #475569;">|</span>
+            <a href="architecture.html" style="color: #cbd5e1; text-decoration: none; margin: 0 15px;">ARCHITECTURE</a>
+        </nav>
 
-    <div class="main-titles">
-        <h1>Strategic Architecture</h1>
-        <h2>Token Lebnani Master Architecture</h2>
-        <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">THE OPERATING SYSTEM FOR CROSS-BORDER REAL ESTATE</div>
-    </div>
-    
-    <div class="search-container">
-        <input type="text" id="searchInput" class="search-input" placeholder="Search architecture (e.g., 'SPV', 'Legal', 'Wallet')...">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-    </div>
-</header>
+        <div class="main-titles">
+            <h1>Strategic Execution</h1>
+            <h2>Token Lebnani Strategy</h2>
+            <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">FROM ASSET SOURCING TO LIQUIDITY</div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search strategy (e.g., 'SPV', 'Tokens', 'Arbitration')...">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+    </header>
 
     <main class="container" id="treeContainer"></main>
 
     <script>
         // --- DATA ---
+        // Populated with editorial content from the original strategy.html
         const treeData = [
             {
-                id: 'root1',
-                title: '1.1. THE CAPITAL INVESTOR (THE BUYER FLOW)',
-                subtitle: '(Persona: The "Disconnected Patriarch" & The Diaspora)',
+                id: 'step1',
+                title: 'Step 1: Asset Sourcing & Contract Execution',
+                subtitle: 'The Initiation Phase',
                 children: [
                     {
-                        title: '1.1.1. The Mechanics (How it Works)',
-                        content: `<strong>Concept:</strong> We are not selling "paper" or "claims." We are selling the asset itself, digitized for transferability.
-                        <strong>The Math:</strong> We fractionalize high-value assets (e.g., a $10M Hotel) into digital shares. While the minimum investment is $65,000 (to meet Professional Client suitability), the underlying share structure allows for granular divisibility.
-                        <strong>The Purchase:</strong> Buying a token is legally identical to buying a share in a company. 1 Token = 1 Share in the ADGM Holding Co = Pro-rata ownership of the Lebanese Title Deed.`
+                        title: 'WHAT',
+                        content: 'Token Lebnani identifies, evaluates, and signs an exclusive agreement with a property owner to tokenize their asset.'
                     },
                     {
-                        title: '1.1.2. The Asset Definition (What do I own?)',
-                        content: `<strong>Legal Object:</strong> The Token is a Digital Title Deed. It is not a crypto-currency; it is a smart security representing equity.
-                        <strong>The Chain of Title:</strong> Investor (Token Holder) &rarr; ADGM Holding Co (Issuer) &rarr; Lebanese SPV (Asset Owner) &rarr; Physical Title Deed.
-                        <strong>The "Look-Through" Enforceability:</strong> We utilize Binding Arbitration clauses under the New York Convention to ensure that your digital claim in ADGM is enforceable against the physical asset in Lebanon, bypassing local court paralysis.`
+                        title: 'WHY',
+                        content: 'Token Lebnani operates as a facilitator, not as an asset owner. This exclusive contract is the trigger that initiates the entire tokenization process.'
                     },
                     {
-                        title: '1.1.3. The Crypto Distinction (Is this gambling?)',
-                        content: `<strong>Classification:</strong> This is a Real World Asset (RWA).
-                        <strong>Value Driver:</strong> The price is driven by the physical valuation of the real estate (Net Asset Value), not by Bitcoin volatility or hype.
-                        <strong>Stability:</strong> Blockchain is merely the "Digital Notary"—a recording tool used for transparency and speed. It is the infrastructure, not the product.`
-                    },
-                    {
-                        title: '1.1.4. The Tech Barrier (I don\'t have a wallet)',
-                        content: `<strong>Solution:</strong> White-Glove Concierge Service.
-                        <strong>Process:</strong> Our Client Services Coordinator manages the entire "Papering" phase via Zoom. We provide Guided Wallet Setup, ensuring you secure your keys without needing to understand the cryptography.
-                        <strong>Experience:</strong> "You write the check (USD Wire); we handle the plumbing."`
-                    },
-                    {
-                        title: '1.1.5. Oversight & Reporting (How do I see my money?)',
-                        content: `<strong>The Interface:</strong> A Private-Banking style Live Dashboard (powered by Digishares).
-                        <strong>Data:</strong> Real-time Portfolio Value, Rental Yield (NOI) performance, and Facility Management reports.
-                        <strong>Outputs:</strong> Automated, downloadable PDF Tax Statements and Audit Reports.`
-                    },
-                    {
-                        title: '1.1.6. Security of Assets (What if I lose my phone?)',
-                        content: `<strong>The Solution:</strong> The "Blacklist & Replace" Protocol.
-                        <strong>Mechanism:</strong> Because these are regulated securities, not bearer bonds, identity trumps possession. If keys are lost:
-                        <br>• Investor proves identity via Video KYC.
-                        <br>• Compliance Officer "Freezes" the lost wallet.
-                        <br>• Smart Contract "Burns" the old tokens and "Re-mints" new ones to your new wallet.
-                        <strong>Result:</strong> It is technically impossible to permanently lose the asset due to a lost password.`
-                    },
-                    {
-                        title: '1.1.7. Counterparty Risk (What if you go bankrupt?)',
-                        content: `<strong>Custody:</strong> Non-Custodial Architecture. You hold your own assets.
-                        <strong>Protection:</strong> The Asset is held in a Bankruptcy-Remote SPV. Even if Token Lebnani (the Platform) dissolves, your ownership of the ADGM Holding Co (and the Lebanese building) remains legally intact.`
-                    },
-                    {
-                        title: '1.1.8. Country Risk (Is my money safe in Lebanon?)',
-                        content: `<strong>Domicile:</strong> You are investing in ADGM (Abu Dhabi) under English Common Law.
-                        <strong>Defense:</strong> The "Ring-Fenced" structure protects your capital from Lebanese systemic risk. Dividends flow via SWIFT to the UAE, bypassing the local Lebanese banking sector entirely.`
-                    },
-                    {
-                        title: '1.1.9. Liquidity Access (How do I sell?)',
-                        content: `<strong>Mechanism:</strong> Secondary Market Access. Tokens are technically compatible with ADGM-licensed Multilateral Trading Facilities (MTFs).
-                        <strong>Speed:</strong> While subject to market demand, the settlement capability is T+0 (Instant) via blockchain, compared to the 6-month delay of a physical notary sale in Beirut.`
-                    },
-                    {
-                        title: '1.1.10. Pricing Logic (Who sets the price?)',
-                        content: `<strong>Anchor:</strong> Audited Net Asset Value (NAV). Third-party RICS-accredited valuers appraise the property annually.
-                        <strong>Market:</strong> On the secondary market, buyers and sellers agree on price, but the published NAV serves as a stabilizer to prevent wild volatility.`
-                    },
-                    {
-                        title: '1.1.11. Comparative Advantage (Why not buy an apartment?)',
-                        content: `<strong>Passive:</strong> Professional Facilities Management (FMC) handles tenants, toilets, and taxes. You just collect the yield.
-                        <strong>Access:</strong> Access to Institutional Grade assets (Hotels, Office Blocks) that are out of reach for individual buyers.
-                        <strong>Diversification:</strong> Split your $1M capital across 10 different buildings rather than risking it on one apartment.`
-                    },
-                    {
-                        title: '1.1.12. Cost & Speed (Prove it\'s cheaper)',
-                        content: `<strong>Savings:</strong> You avoid the 6% Registration Fee on secondary trades. You avoid the 2.5% lawyer fees.
-                        <strong>Speed:</strong> Digital settlement executes in minutes (ledger update) vs. months of bureaucratic notary work.`
-                    },
-                    {
-                        title: '1.1.13. Inheritance (The Legacy)',
-                        content: `<strong>Solution:</strong> Frictionless Ledger Transfer.
-                        <strong>Benefit:</strong> Digital securities can be transferred to heirs instantly upon proof of death, avoiding the multi-year paralysis of Lebanese probate courts and family disputes.`
+                        title: 'HOW',
+                        content: 'The Head of Asset Origination negotiates terms including the percentage of ownership to be fractionalized, valuation methodology, and fees. Only after this binding agreement is signed does the structuring process begin.'
                     }
                 ]
             },
             {
-                id: 'root2',
-                title: '1.2. THE PROPERTY OWNER (THE SELLER FLOW)',
-                subtitle: '(Persona: The "Distressed Patriarch" & The Developer)',
+                id: 'step2',
+                title: 'Step 2: Your Investment Gets a UAE Legal Shield',
+                subtitle: 'ADGM Holding Company Formation',
                 children: [
                     {
-                        title: '1.2.1. The Liquidity Problem (The Market is Frozen)',
-                        content: `<strong>Reality:</strong> There are no buyers for $10M assets in Lebanon today. The buyer pool has evaporated.
-                        <strong>Solution:</strong> We aggregate the massive ($150B) Diaspora wealth via smaller tickets ($65k+), creating a "Whale" out of many "Dolphins."`
+                        title: 'WHAT',
+                        content: 'We create a UAE-based Holding Company (in Abu Dhabi Global Market) that will own the property.'
                     },
                     {
-                        title: '1.2.2. Flexibility (Do I have to sell 100%?)',
-                        content: `<strong>Option:</strong> Fractional Liquidity. You can tokenize 30-40% of the building to raise cash flow for renovations while retaining the majority stake and operational control.`
+                        title: 'WHY',
+                        content: 'This establishes the legal foundation that will ultimately hold the asset under English Common Law protection.'
                     },
                     {
-                        title: '1.2.3. Operational Control (Will I have 1,000 bosses?)',
-                        content: `<strong>Reality:</strong> Investors are Passive Financial Beneficiaries.
-                        <strong>Control:</strong> The Owner (or appointed FMC) retains day-to-day management rights. Investors vote only on "Liquidation Events" (selling the building), not on paint colors.`
-                    },
-                    {
-                        title: '1.2.4. Decision Making (Who runs the building?)',
-                        content: `<strong>Governance:</strong> "Risk Isolation" clauses in the Shareholder Agreement prevent investors from interfering in operations.`
-                    },
-                    {
-                        title: '1.2.5. Valuation (Who sets the price?)',
-                        content: `<strong>Method:</strong> Third-Party Audited Appraisal. We use RICS standards, not "Fire Sale" distress prices. This ensures the Seller gets Fair Market Value.`
-                    },
-                    {
-                        title: '1.2.6. Payout Currency (Lollars or Fresh?)',
-                        content: `<strong>Currency:</strong> Fresh USD.
-                        <strong>Speed:</strong> Capital is raised in the UAE and wired directly to the Seller’s designated account (outside Lebanon if preferred), bypassing the local "Lollar" trap.`
-                    },
-                    {
-                        title: '1.2.7. Transfer Mechanics (The 6% Fee Problem)',
-                        content: `<strong>Method:</strong> Share Transfer (ADGM) vs. Title Transfer (Lebanon).
-                        <strong>Benefit:</strong> The SPV pays the transfer tax once (upon formation). All subsequent trades happen at the ADGM share level, avoiding the repetitive 6% Lebanese transfer tax.`
-                    },
-                    {
-                        title: '1.2.8. Legal Validity (Is this legal in Lebanon?)',
-                        content: `<strong>Validation:</strong> Foreign ownership of Lebanese Real Estate (via an SPV) is standard practice. Our Legal Partners (YazConsult) validate every SPV structure to ensure it complies with local property limits (e.g., maximum square footage for foreigners).`
-                    },
-                    {
-                        title: '1.2.9. Buy-Back Option (Can I regain ownership?)',
-                        content: `<strong>Strategy:</strong> Open Market Buy-Back. If liquidity returns to the Seller later, they can repurchase tokens from the secondary market to consolidate ownership.`
-                    },
-                    {
-                        title: '1.2.10. The Exit Strategy (Can I sell the whole building?)',
-                        content: `<strong>Mechanism:</strong> "Drag-Along" Clause. If a buyer arrives to purchase 100% of the building at a premium, the Majority Owner can force the minority token holders to sell, ensuring the asset remains liquid for the primary owner.`
+                        title: 'HOW',
+                        content: 'Token Lebnani incorporates the Holding Company under ADGM regulations, establishing the regulatory framework that governs investor rights and asset protection.'
                     }
                 ]
             },
             {
-                id: 'root3',
-                title: '1.3. THE INSTITUTIONAL EXPERT (THE ADVISOR FLOW)',
-                subtitle: '(Persona: Regulators, Bankers, VCs)',
+                id: 'step3',
+                title: 'Step 3: The Asset Is Secured',
+                subtitle: 'Transfer to Lebanese SPV',
                 children: [
                     {
-                        title: '1.3.1. Regulatory Classification (Fund vs. OpCo)',
-                        content: `<strong>Defense:</strong> We are an Arranger (Category 4). We are not a Fund Manager.
-                        <strong>Structure:</strong> The Asset SPV is an "Operating Company" (Passive Landlord with outsourced ops), not a Collective Investment Fund, because investors hold direct equity in a single asset, not a managed pool.`
+                        title: 'WHAT',
+                        content: 'The Lebanese property is legally transferred to a dedicated Lebanese Special Purpose Vehicle (SPV - a Lebanese registered company).'
                     },
                     {
-                        title: '1.3.2. Sandbox Constraints (The Scale Issue)',
-                        content: `<strong>Role:</strong> Validation Phase. The Sandbox validates the cross-border legal enforceability.
-                        <strong>Growth:</strong> We graduate to a full license to lift the 200-investor cap, or utilize "Feeder SPVs" to aggregate smaller investors into single slots.`
+                        title: 'WHY',
+                        content: 'This "Asset-First" model ensures the SPV owns the physical title deed before any tokens are sold, eliminating counterparty risk.'
                     },
                     {
-                        title: '1.3.3. Cross-Border Enforceability (The Legal Link)',
-                        content: `<strong>IP:</strong> The "Look-Through" Structure + Binding Arbitration (NY Convention).
-                        <strong>Protection:</strong> This effectively extends the jurisdiction of English Common Law over the economic rights of the Lebanese asset.`
+                        title: 'HOW',
+                        content: 'The property deed is transferred through a Lebanese notary into the SPV\'s name, with the ADGM Holding Company registered as the sole owner. Legal validation ensures compliance with Lebanese foreign ownership rules.'
+                    }
+                ]
+            },
+            {
+                id: 'step4',
+                title: 'Step 4: Professional Managers Handle Everything',
+                subtitle: 'Operational Management',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: 'The ADGM Holding Company appoints a professional Facility Management Company (FMC) to manage the property.'
                     },
                     {
-                        title: '1.3.4. Compliance & MLRO (The Team Gap)',
-                        content: `<strong>Solution:</strong> Outsourced MLRO (Waystone). We do not pretend to be compliance experts; we hire the best in the region to ensure we meet "Fit and Proper" standards from Day 1.`
+                        title: 'WHY',
+                        content: 'Investors are passive financial beneficiaries—they should not manage tenants, repairs, or taxes. The FMC ensures professional operations and reliable income collection.'
                     },
                     {
-                        title: '1.3.5. Trading License (Arranger vs. Exchange)',
-                        content: `<strong>Compliance:</strong> Token Lebnani = Category 4 Arranger (Primary Issuance only).
-                        <strong>Trading:</strong> We outsource secondary trading to external licensed MTFs. We do not operate the matching engine.
-                        <strong>Lock-Up:</strong> No arbitrary lock-up. Liquidity is subject to MTF listing and market demand.`
+                        title: 'HOW',
+                        content: 'The FMC signs a legally binding Facilities Management Agreement with the Lebanese SPV. This contract mandates rent collection, property maintenance, tax payments, and monthly reporting to the Holding Company.'
+                    }
+                ]
+            },
+            {
+                id: 'step5',
+                title: 'Step 5: Token Lebnani Cannot Access Your Tokens—Ever',
+                subtitle: 'Custody & Control',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: '100% of the ownership tokens are initially issued to the property owner, then the pre-agreed percentage becomes available for sale on the Token Lebnani platform.'
                     },
                     {
-                        title: '1.3.6. Unit Economics (The Business Model)',
-                        content: `<strong>Revenue:</strong> Platform Administration & Origination Fees.
-                        <strong>Breakdown:</strong>
-                        <br>• Origination Fee: ~6% of Capital Raised (Covering setup & commission).
-                        <br>• Admin Fee: ~1-2% of NOI (ongoing tech & reporting fee).
-                        <br><strong>Note:</strong> We avoid terms like "Arbitrage Spread" to prevent "Dealing as Principal" classification.`
+                        title: 'WHY',
+                        content: 'Token Lebnani operates as a regulated facilitator—never taking ownership of the asset or tokens. The platform simply enables the property owner to fractionally sell their equity through a secure, automated process.'
                     },
                     {
-                        title: '1.3.7. Go-To-Market (The Machine)',
-                        content: `<strong>Supply:</strong> Partner with Lebanese Brokers (REAs) as "Marketing Conduits."
-                        <strong>Demand:</strong> Partner with GCC Wealth Advisors (IWAs) for bulk blocks.
-                        <strong>Retention:</strong> "Asset Farming" Loop. 65% of investors are expected to reinvest dividends into new assets.`
+                        title: 'HOW',
+                        content: 'Token Lebnani creates digital securities using institutional-grade technology. These tokens are special-purpose digital certificates sent directly to the owner\'s personal digital wallet. <strong>Token Lebnani has no ability to freeze, transfer, or control your assets</strong>.'
+                    }
+                ]
+            },
+            {
+                id: 'step6',
+                title: 'Step 6: Tokens Are Offered to Qualified Investors',
+                subtitle: 'The Offering',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: 'Token Lebnani lists the tokens on its regulated platform for sale to Professional Clients.'
                     },
                     {
-                        title: '1.3.8. Defensibility (The Moat)',
-                        content: `<strong>Trust:</strong> We position as "Anti-System" (vs. Lebanese Banks) but "Pro-Regulation" (vs. Crypto Scams).
-                        <strong>Model:</strong> We are the Aggregator (Amazon), not the Developer. We own the client relationship and the legal rails.`
+                        title: 'WHY',
+                        content: 'This opens access to diaspora capital while complying with regulatory requirements—Token Lebnani never acts as a fund or exchange.'
                     },
                     {
-                        title: '1.3.9. Scalability (The Endgame)',
-                        content: `<strong>Vision:</strong> "Digital Citadel" for MENA.
-                        <strong>Expansion:</strong> Once the "Lebanon Bridge" is proven, we replicate the model for Egypt (Currency Crisis) and Turkey (Inflation Hedge), becoming the regional standard for cross-border asset safety.`
+                        title: 'HOW',
+                        content: 'The property owner authorizes Token Lebnani to arrange the sale. Investors view the offering via a secure dashboard, complete identity verification, and are whitelisted in the system. Funds settle via a regulated Escrow Agent.'
+                    }
+                ]
+            },
+            {
+                id: 'step7',
+                title: 'Step 7: You Acquire Direct Economic Rights',
+                subtitle: 'Purchase & Settlement',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: 'You purchase tokens that represent legal equity in the ADGM Holding Company—and thus pro-rata ownership of the Lebanese SPV and physical asset.'
+                    },
+                    {
+                        title: 'WHY',
+                        content: 'You are not buying a promise or a derivative—you are buying enforceable property rights.'
+                    },
+                    {
+                        title: 'HOW',
+                        content: 'You sign two binding instruments: 1) A Token Purchase Agreement (TPA) governed by ADGM law. 2) A Smart Contract that records your rights. Funds are wired in USD; tokens arrive in your wallet.'
+                    }
+                ]
+            },
+            {
+                id: 'step8',
+                title: 'Step 8: If a dispute arises, international law protects you',
+                subtitle: 'Dispute Resolution',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: 'Your ownership is protected by Binding Arbitration under the New York Convention.'
+                    },
+                    {
+                        title: 'WHY',
+                        content: 'If a dispute arises, an ADGM judgment can be enforced directly against the Lebanese property—bypassing slow local courts entirely.'
+                    },
+                    {
+                        title: 'HOW',
+                        content: 'The Lebanese SPV\'s Articles of Association include Share Pledges and arbitration clauses. ADGM courts recognize your token ledger as the definitive shareholder register.'
+                    }
+                ]
+            },
+            {
+                id: 'step9',
+                title: 'Step 9: Earn, Trade, & Access',
+                subtitle: 'Post-Investment Lifecycle',
+                children: [
+                    {
+                        title: 'WHAT',
+                        content: 'You receive quarterly income distributions, can trade tokens on regulated trading venues, and transfer ownership instantly upon death.'
+                    },
+                    {
+                        title: 'WHY',
+                        content: 'This solves the core Lebanese problems: illiquidity, probate delays, and opaque cash flows.'
+                    },
+                    {
+                        title: 'HOW',
+                        content: '<strong>Earn:</strong> Rental income is collected by FMC.<br><strong>Trade:</strong> Tokens compatible with regulated venues.<br><strong>Inherit:</strong> Simple recovery process for heirs.'
                     }
                 ]
             }
@@ -677,7 +646,6 @@
                     rootNode.classList.remove('dimmed');
                 }
 
-
                 // Header
                 const rootHeader = document.createElement('div');
                 rootHeader.className = 'root-header';
@@ -696,163 +664,4 @@
                 childList.className = 'child-list';
 
                 // Children
-                let shouldExpandRoot = false;
-
-                root.children.forEach((child) => {
-                    let childMatches = true; // Default show all if no search
-                    let expandThisChild = false;
-
-                    if (searchTerm) {
-                        const term = searchTerm.toLowerCase();
-                        const titleMatch = child.title.toLowerCase().includes(term);
-                        const contentMatch = child.content.toLowerCase().includes(term);
-                        
-                        if (titleMatch || contentMatch) {
-                            childMatches = true;
-                            shouldExpandRoot = true; // Found match inside
-                            if (contentMatch) expandThisChild = true;
-                        } else {
-                            childMatches = false;
-                        }
-                    }
-
-                    const childNode = document.createElement('div');
-                    childNode.className = 'child-node';
-                    if (searchTerm && !childMatches) {
-                        childNode.classList.add('dimmed'); // Dim irrelevant siblings
-                    }
-
-                    // Child Header
-                    const childHeader = document.createElement('div');
-                    childHeader.className = 'child-header';
-                    childHeader.innerHTML = `
-                        <div class="child-title">${highlightText(child.title, searchTerm)}</div>
-                        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    `;
-
-                    // Child Content
-                    const contentWrapper = document.createElement('div');
-                    contentWrapper.className = 'child-content-wrapper';
-                    const contentDiv = document.createElement('div');
-                    contentDiv.className = 'child-content';
-                    contentDiv.innerHTML = highlightText(child.content, searchTerm);
-
-                    contentWrapper.appendChild(contentDiv);
-
-                    // Toggle Logic
-                    childHeader.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        toggleSection(childHeader, contentWrapper, childWrapper);
-                    });
-
-                    // Auto Expand if Search Match
-                    if (expandThisChild) {
-                        childHeader.classList.add('active');
-                        contentWrapper.style.maxHeight = "1000px"; // approximate max
-                    }
-
-                    childNode.appendChild(childHeader);
-                    childNode.appendChild(contentWrapper);
-                    childList.appendChild(childNode);
-                });
-
-                childWrapper.appendChild(childList);
-
-                // Root Toggle Logic
-                rootHeader.addEventListener('click', () => {
-                    toggleSection(rootHeader, childWrapper, null);
-                });
-
-                // Auto Expand Root if Search Match
-                if (shouldExpandRoot) {
-                    rootHeader.classList.add('active');
-                    childWrapper.style.maxHeight = "5000px"; // large buffer
-                }
-
-                rootNode.appendChild(rootHeader);
-                rootNode.appendChild(childWrapper);
-                container.appendChild(rootNode);
-            });
-        }
-
-        // Helper: Toggle Sections
-        function toggleSection(header, wrapper, parentWrapper) {
-            const isExpanded = header.classList.contains('active');
-            
-            if (isExpanded) {
-                header.classList.remove('active');
-                wrapper.style.maxHeight = null;
-            } else {
-                header.classList.add('active');
-                wrapper.style.maxHeight = wrapper.scrollHeight + "px";
-                
-                // If inside another wrapper, expand that too
-                if (parentWrapper) {
-                    parentWrapper.style.maxHeight = (parentWrapper.scrollHeight + wrapper.scrollHeight) + "px";
-                }
-            }
-        }
-
-        // Helper: Highlight Text
-        function highlightText(text, term) {
-            if (!term) return text;
-            const regex = new RegExp(`(${term})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-
-        // --- EVENTS ---
-
-        // 1. Search Listener
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
-            renderTree(e.target.value);
-        });
-
-        // 2. Parallax Effect
-        document.addEventListener('mousemove', (e) => {
-            const orbs = document.querySelectorAll('.glow-orb');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-
-            orbs.forEach(orb => {
-                const speed = orb.getAttribute('data-speed');
-                const xOffset = (window.innerWidth / 2 - e.clientX) * speed;
-                const yOffset = (window.innerHeight / 2 - e.clientY) * speed;
-                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            });
-        });
-
-        // 3. Sidebar Navigation
-        document.querySelectorAll('.nav-dot').forEach(dot => {
-            dot.addEventListener('click', () => {
-                const targetId = dot.getAttribute('data-target');
-                const element = document.getElementById(targetId);
-                window.scrollTo({
-                    top: element.offsetTop - 100, // Offset for header
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Highlight active sidebar dot on scroll
-        window.addEventListener('scroll', () => {
-            const dots = document.querySelectorAll('.nav-dot');
-            const scrollPos = window.scrollY + 200;
-
-            dots.forEach(dot => {
-                const target = document.getElementById(dot.getAttribute('data-target'));
-                if (target.offsetTop <= scrollPos && (target.offsetTop + target.offsetHeight) > scrollPos) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        });
-
-        // Initial Render
-        document.addEventListener('DOMContentLoaded', () => renderTree());
-
-    </script>
-    <script src="auth.js"></script>
-</body>
-</html>
+                let shouldExpandRoot =
